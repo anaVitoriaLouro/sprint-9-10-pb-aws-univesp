@@ -12,7 +12,7 @@ Deverá ser produzido um projeto final para apresentação pública ao final des
 
 A equipe devevá:
 
-1 - Escolher uma aplicação prática para implementação e definir a arquitetura preliminar AWS até 05/04/2023;
+1 - Escolher uma aplicação prática para implementação e definir a arquitetura preliminar AWS até 09/06/2023;
 
 2 - A aplicação deverá contemplar, no mínimo, as seguintes ferramentas AWS:
 
