@@ -1,0 +1,46 @@
+service: projetoFinalGrupo2
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-east-1
+  httpApi:
+    cors: true
+  iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "lambda:InvokeFunction"
+          - "lambda:PublishLayerVersion"
+          - "rekognition:DetectText"
+          - "lex:RunBot"
+          - "lex:PostText"
+          - "polly:SynthesizeSpeech"
+          - "execute-api:*"
+        Resource: "*"
+
+functions:
+  health:
+    handler: handler.health
+    events:
+      - httpApi:
+          path: /
+          method: get
+  transcribeAudioFunction:
+    handler: handler.transcribeAudio
+    events:
+      - httpApi:
+          path: /transcribeAudio
+          method: post
+  transcribeTextFunction:
+    handler: handler.transcribeText
+    events:
+      - httpApi:
+          path: /transcribeText
+          method: post
+  rekognitionFunction:
+    handler: handler.rekognition
+    events:
+      - httpApi:
+          path: /rekognition
+          method: post
