@@ -21,7 +21,7 @@ A pandemia da COVID-19 trouxe consigo uma série de desafios sem precedentes, af
 
 # Organização e fluxo de trabalho 
 
-![Arquitetura Projeto Final (1)  MConverter eu  (1)](https://github.com/Compass-pb-aws-2023-Univesp/sprint-9-10-pb-aws-univesp/assets/88354075/ba562107-2b00-4048-9f64-7317ef70a5bd)
+
 
 
 
@@ -30,11 +30,38 @@ A pandemia da COVID-19 trouxe consigo uma série de desafios sem precedentes, af
 ![Arquitetura drawio](https://github.com/Compass-pb-aws-2023-Univesp/sprint-9-10-pb-aws-univesp/assets/88354075/40f624b6-2fc4-4fbb-8fdf-b6045c4d4c22)
 
 
-# Instalação	
+
+	
+
+## Serviços utilizados
+
+- Amazon Recokgnition 
+- Amazon Transcribe
+- Amazon Translate
+- Amazon Lex
+- Whatsapp
+- Twilio
+
+# Instalação
+
+## Etapas
+
+- Criar um chatbot no Amazon Lex
+- Integrar com Recokgintion 
+- Criar uma conta no [Twilio](https://www.twilio.com/)
+- Integrar com Whatsapp
+
+## Integrando o Amazon Lex com o Whatsapp via Twilio
+
+- Twilio Console -> My account -> Copiar SID e Token
+- Amazon Lex Console -> Bot versions -> Deployment -> Channel Integrations -> Add channel -> Platform - Twilio SMS -> Inserir Account SID e Authentication token -> Create -> Copiar url de endpoint gerado
+- Twilio Console -> Messaging -> Settings -> Whatsapp sandbox settings -> Colar endpoint copiado em WHEN A MESSAGE COMES IN
 
 # Dificuldades 
 
-# Referencias 
+# Referências 
+
+[Kondado](https://kondado.com.br/blog/wiki/2020/11/03/adicionando-o-s3-como-destino-na-plataforma-da-kondado/)
 
 # Desenvolvedores 
 
