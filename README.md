@@ -1,4 +1,4 @@
-Avaliação Sprints 9 e 10 - Projeto Final - Programa de Bolsas Compass UOL / AWS e Univesp
+## Avaliação Sprints 9 e 10 - Projeto Final - Programa de Bolsas Compass UOL / AWS e Univesp
 
 ## Tema do Projeto
 
@@ -16,6 +16,7 @@ Com a transcrição de áudio, tornamos os conteúdos audíveis em textos, permi
 Esperamos que este projeto contribua para a inclusão e acessibilidade de pessoas com diferentes necessidades, proporcionando uma experiência enriquecedora e facilitando o acesso à informação de forma mais abrangente e igualitária.
 
 ## Objetivo
+O objetivo deste projeto é desenvolver uma aplicação prática que promova a acessibilidade de textos, áudios e imagens, atendendo às necessidades de pessoas com dificuldades na leitura e escrita, deficiência auditiva ou visual, analfabetismo ou dislexia. Utilizaremos recursos de machine learning e serviços da AWS, como o Amazon Transcribe, Amazon Polly, Amazon Rekognition e Amazon Lex, para implementar funcionalidades que tornem os conteúdos acessíveis por meio de diferentes modalidades.
 
 ## Estrutura do Projeto
 
@@ -25,8 +26,7 @@ A arquitetura preliminar AWS do nosso projeto foi definida da seguinte forma:
 2. Utilizamos o Amazon Polly para sintetizar textos em áudios.
 3. Utilizamos o Amazon Rekognition para descrever imagens.
 4. Implementamos um chatbot utilizando o Amazon Lex para interação com os usuários.
-
-A aplicação é hospedada na AWS, com os recursos necessários para garantir a escalabilidade e disponibilidade adequadas.
+5. A aplicação é hospedada na AWS, com os recursos necessários para garantir a escalabilidade e disponibilidade adequadas.
 <!-- 
 A arquitetura geral do projeto é a seguinte:
 
@@ -39,6 +39,14 @@ Dessa maneira essa será a arquitetura a ser impantada em TODA ATIVIDADE será: 
 
 
 ## Funcionamento
+A aplicação funciona da seguinte forma:
+
+- O usuário envia um áudio, imagem ou texto para a aplicação.
+- O Amazon Transcribe é utilizado para transcrever o áudio em texto, se necessário.
+- O texto é processado e transformado em áudio por meio do Amazon Polly, caso solicitado.
+- A imagem é analisada e descrita pelo Amazon Rekognition, gerando um texto descritivo.
+- O chatbot, implementado com o Amazon Lex, oferece suporte adicional e responde a consultas do usuário.
+- Os resultados são apresentados ao usuário de acordo com o formato de entrada escolhido.
 
 ## Requisitos
 
@@ -62,7 +70,13 @@ Nosso código fonte foi otimizado para evitar duplicações e seguir as melhores
 ## Dificuldades Conhecidas
 
 ## Referências
+Durante o desenvolvimento deste projeto, consultamos as seguintes referências:
 
+- Documentação oficial da AWS: https://docs.aws.amazon.com/
+- Documentação do Amazon Transcribe: https://docs.aws.amazon.com/transcribe/index.html
+- Documentação do Amazon Polly: https://docs.aws.amazon.com/polly/index.html
+- Documentação do Amazon Rekognition: https://docs.aws.amazon.com/rekognition/index.html
+- Documentação do Amazon Lex: https://docs.aws.amazon.com/lex/index.html
 
 ## Desenvolvedores
 [<img src="https://avatars.githubusercontent.com/u/25699466?v=4" width=115><br><sub>Bruno Perillo</sub>](https://github.com/brunoperillo) | [<img src="https://avatars.githubusercontent.com/u/78061851?v=4" width=115><br><sub>Carlos Camilo</sub>](https://github.com/crobertocamilo) | [<img src="https://avatars.githubusercontent.com/u/96358027?v=4" width=115><br><sub>Diego Lopes</sub>](https://github.com/Diegox0301) | [<img src="https://avatars.githubusercontent.com/u/124359272?v=4" width=115><br><sub>Irati Maffra</sub>](https://github.com/IratiMaffra) | [<img src="https://avatars.githubusercontent.com/u/73674662?v=4" width=115><br><sub>Marcos Nativo</sub>](https://github.com/onativo) | [<img src="https://avatars.githubusercontent.com/u/94749597?v=4" width=115><br><sub>O'Dhara Maggi</sub>](https://github.com/odharamaggi)|
