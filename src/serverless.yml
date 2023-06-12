@@ -17,7 +17,21 @@ provider:
           - "lex:PostText"
           - "polly:SynthesizeSpeech"
           - "execute-api:*"
+          - "s3:GetObject"
+          - "s3:PutObject"
         Resource: "*"
+
+resources:
+  Resources:
+    ImagensInput:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: !Sub "sprint9-images-input-${AWS::AccountId}"
+
+    TextsOutput:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: !Sub "sprint9-detected-texts-${AWS::AccountId}"
 
 functions:
   health:
@@ -39,8 +53,8 @@ functions:
           path: /transcribeText
           method: post
   rekognitionFunction:
-    handler: handler.rekognition
+    handler: textRekognition.img2txt
     events:
       - httpApi:
-          path: /rekognition
+          path: /textRekognition
           method: post
