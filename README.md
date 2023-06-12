@@ -27,7 +27,7 @@ A pandemia da COVID-19 trouxe consigo uma série de desafios sem precedentes, af
 
 # Arquitetura 
 
-![Arquitetura drawio](https://github.com/Compass-pb-aws-2023-Univesp/sprint-9-10-pb-aws-univesp/assets/88354075/40f624b6-2fc4-4fbb-8fdf-b6045c4d4c22)
+![2 1Arquitetura  drawio](https://github.com/Compass-pb-aws-2023-Univesp/sprint-9-10-pb-aws-univesp/assets/88354075/c66896e2-9c27-4e74-a599-4d67a8a5ea32)
 
 
 
