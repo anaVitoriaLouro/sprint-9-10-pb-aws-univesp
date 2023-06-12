@@ -33,6 +33,11 @@ resources:
       Properties:
         BucketName: !Sub "sprint9-detected-texts-${AWS::AccountId}"
 
+    AudioOutput:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: !Sub "sprint9-synthesized-audios-${AWS::AccountId}"
+
 functions:
   health:
     handler: handler.health
