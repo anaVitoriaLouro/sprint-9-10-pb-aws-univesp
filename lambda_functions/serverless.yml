@@ -1,0 +1,76 @@
+service: projetoFinalGrupo2
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3-object-lambda:*"
+        - "lambda:PublishLayerVersion"
+        - "lambda:InvokeFunction"
+        - "logs:CreateLogGroup"
+        - "logs:CreateLogStream"
+        - "logs:PutLogEvents"
+        - "rekognition:DetectText"
+        - "s3:PutObject"
+        - "s3:GetObject"
+        - "transcribe:StartTranscriptionJob"
+        - "transcribe:GetTranscriptionJob"
+        - "transcribe:StartTranscriptionJob"
+        - "transcribe:GetTranscriptionJob"
+        - "polly:GetSpeechSynthesisTask"
+        - "polly:SynthesizeSpeech"
+      Resource: "*"
+
+# This creates a public S3 bucket from the deploy
+resources:
+  Resources:
+    ImagensInput:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: !Sub "sprint9-images-input-${AWS::AccountId}"
+    TextsOutput:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: !Sub "sprint9-detected-texts-${AWS::AccountId}"
+
+    AudioOutput:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: !Sub "sprint9-synthesized-audios-${AWS::AccountId}"
+
+functions:
+  health:
+    handler: handler.health
+    events:
+      - httpApi:
+          path: /
+          method: GET
+  SlackIntegration:
+    handler: handler.lambda_handler
+    timeout: 29
+    events:
+      - httpApi:
+          path: /slackIntegration
+          method: POST
+  transcribeAudioFunction:
+    handler: services/transcribe.transcribe_audio
+    events:
+      - httpApi:
+          path: /transcribeAudio
+          method: POST
+  synthesizeAudioFunction:
+    handler: services/synthetize_speech.synthetize_speech
+    events:
+      - httpApi:
+          path: /synthesizeSpeech
+          method: POST
+  rekognitionFunction:
+    handler: services/textRekognition.img2txt
+    events:
+      - httpApi:
+          path: /rekognition
+          method: POST
