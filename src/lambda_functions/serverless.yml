@@ -62,11 +62,11 @@ functions:
       - httpApi:
           path: /transcribeAudio
           method: POST
-  synthesizeAudioFunction:
+  synthetizeAudioFunction:
     handler: services/synthetize_speech.synthetize_speech
     events:
       - httpApi:
-          path: /synthesizeSpeech
+          path: /synthetizeSpeech
           method: POST
   rekognitionFunction:
     handler: services/textRekognition.img2txt
