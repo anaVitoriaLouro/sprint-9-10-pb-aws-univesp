@@ -17,26 +17,7 @@ provider:
           - "lex:PostText"
           - "polly:SynthesizeSpeech"
           - "execute-api:*"
-          - "s3:GetObject"
-          - "s3:PutObject"
         Resource: "*"
-
-resources:
-  Resources:
-    ImagensInput:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: !Sub "sprint9-images-input-${AWS::AccountId}"
-
-    TextsOutput:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: !Sub "sprint9-detected-texts-${AWS::AccountId}"
-
-    AudioOutput:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: !Sub "sprint9-synthesized-audios-${AWS::AccountId}"
 
 functions:
   health:
@@ -58,8 +39,14 @@ functions:
           path: /transcribeText
           method: post
   rekognitionFunction:
-    handler: textRekognition.img2txt
+    handler: handler.rekognition
     events:
       - httpApi:
-          path: /textRekognition
+          path: /rekognition
+          method: post
+  lambdaSlackHandler:
+    handler: handler.lambda_handler
+    events:
+      - httpApi:
+          path: /slack/events
           method: post

@@ -1,1 +1,7 @@
+#serverless folder
 .serverless
+
+#environment variables
+.env
+
+.env
