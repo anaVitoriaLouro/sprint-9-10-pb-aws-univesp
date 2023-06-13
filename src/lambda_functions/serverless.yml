@@ -33,21 +33,41 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub "sprint9-images-input-${AWS::AccountId}"
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+        OwnershipControls:
+          Rules:
+            - ObjectOwnership: ObjectWriter
     #bucket para saída de transcrições
     TextsOutput:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub "sprint9-detected-texts-${AWS::AccountId}"
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+        OwnershipControls:
+          Rules:
+            - ObjectOwnership: ObjectWriter
     #bucket para saída de audio
     AudioOutput:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub "sprint9-synthesized-audios-${AWS::AccountId}"
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+        OwnershipControls:
+          Rules:
+            - ObjectOwnership: ObjectWriter
     #bucket para entrada de audio
     AudioInput:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub "sprint9-audio-input-${AWS::AccountId}"
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+        OwnershipControls:
+          Rules:
+            - ObjectOwnership: ObjectWriter
 
 functions:
   health:
