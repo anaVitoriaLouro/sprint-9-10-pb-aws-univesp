@@ -4,13 +4,14 @@ from contextlib import closing
 import io
 import sys
 import uuid
+from utils.generate_id import generate_random_uuid
 
 polly = boto3.client("polly")
 s3 = boto3.client("s3")
 
 def synthesize_speech(text, bucket_name):
   
-  object_prefix = str(uuid.uuid4().hex)
+  object_prefix = generate_random_uuid()
 
   try:
     # Request speech synthesis

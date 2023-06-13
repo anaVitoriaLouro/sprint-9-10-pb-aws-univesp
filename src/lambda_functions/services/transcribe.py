@@ -1,6 +1,7 @@
 import boto3
 import uuid
 import os
+from utils.generate_id import generate_random_uuid
 
 # Create a Transcribe client
 transcribe = boto3.client('transcribe')
@@ -8,12 +9,12 @@ transcribe = boto3.client('transcribe')
 TEXT_OUTPUT_BUCKET_NAME = os.environ['TEXT_OUTPUT_BUCKET_NAME']
 
 def transcribe_audio(bucket_name, object_key, uuid):
-    
+
     try:
         # Extract the media format from the object_key
         media_format = object_key.split('.')[-1]
 
-        hash_name = str(uuid.uuid4().hex)
+        hash_name = generate_random_uuid()
         
         # Configure the transcription job
         transcribe_job = {
