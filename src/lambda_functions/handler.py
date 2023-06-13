@@ -2,9 +2,6 @@ import json
 import boto3
 import requests
 import os
-import uuid
-from utils.upload_to_s3 import upload_file_to_s3
-from utils.download_audio import download_audiofile
 from modules.get_transcript import get_transcript
 from modules.get_speech import get_speech
 
