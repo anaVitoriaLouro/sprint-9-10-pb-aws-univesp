@@ -12,13 +12,19 @@ def img2txt(event, context):
     
     # Verificar se a imagem existe no bucket
     s3 = boto3.client('s3')
+
+    # Obter o ID da conta
+    sts_client = boto3.client('sts')
+    account_id = sts_client.get_caller_identity()["Account"]
+    print(account_id)
+    
     try:
         s3.head_object(Bucket=bucket, Key=imageName)
 
     except botocore.exceptions.ClientError as e:
         # Imagem não encontrada no bucket
         error_message = "Imagem não encontrada no bucket."
-        response = create_http_response(509, {"error": error_message})
+        response = create_http_response(500, {"error": error_message})
         return response
     
     # Conecta-se ao AWS Rekognition e seleciona o serviço de reconhecimento de rótulos
@@ -31,23 +37,55 @@ def img2txt(event, context):
             }
         }
     )
-
+    
     # Extrai os textos detectados e suas confianças
     texts = []
+    confidence_threshold = 0.8  # Limiar de confiança
     for text_detection in response['TextDetections']:
-        if text_detection['Type'] == 'LINE':
-            texts.append({
-                'DetectedText': text_detection['DetectedText'],
-                'Confidence': text_detection['Confidence']
-            })
+        if text_detection['Type'] == 'LINE' and text_detection['Confidence'] > confidence_threshold:
+            texts.append(text_detection['DetectedText'])
+
+    text = ' '.join(texts) # Juntar as palavras em uma única frase separadas por espaço
 
     result = {
         'url_to_image': url_to_image,
         'created_image': get_image_creation_date(bucket, imageName),
-        'texts': texts
+        'text': text 
     }
 
     #Imprime o resultado nos logs do CloudWatch
     print(result)
+
+    # Nome do arquivo de output no S3
+    text_output_bucket = f"sprint9-detected-texts-{account_id}"
+    base_file_name = imageName.rsplit(".", 1)[0]
+    text_output_file = base_file_name + ".txt"
+
+    url_to_image = f"https://{text_output_bucket}.s3.amazonaws.com/{text_output_file}"
+    print(url_to_image)
+
+    # Salvar o texto detectado em um arquivo de texto
+    s3.put_object(Body=text, Bucket=text_output_bucket, Key=text_output_file)
+
+
+    # Chamar o serviço Amazon Polly para gerar o áudio a partir do texto
+    polly = boto3.client("polly")
+    response = polly.synthesize_speech(
+        Text=text,
+        Engine='neural',
+        LanguageCode='pt-BR',
+        TextType='text',
+        OutputFormat="mp3",
+        VoiceId="Camila"
+        )
+
+    # Obter os dados do áudio gerado
+    audio_data = response["AudioStream"].read()
+
+    # Nome do arquivo de áudio gerado
+    audio_file = base_file_name + ".mp3"
+
+    # Salvar o áudio no S3
+    s3.put_object(Body=audio_data, Bucket=text_output_bucket, Key=audio_file)
 
     return create_http_response(200, result)
