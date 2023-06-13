@@ -28,19 +28,26 @@ provider:
 # This creates a public S3 bucket from the deploy
 resources:
   Resources:
+    #bucket para entrada de imagens
     ImagensInput:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub "sprint9-images-input-${AWS::AccountId}"
+    #bucket para saída de transcrições
     TextsOutput:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub "sprint9-detected-texts-${AWS::AccountId}"
-
+    #bucket para saída de audio
     AudioOutput:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub "sprint9-synthesized-audios-${AWS::AccountId}"
+    #bucket para entrada de audio
+    AudioInput:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: !Sub "sprint9-audio-input-${AWS::AccountId}"
 
 functions:
   health:
@@ -62,11 +69,11 @@ functions:
       - httpApi:
           path: /transcribeAudio
           method: POST
-  synthetizeAudioFunction:
-    handler: services/synthetize_speech.synthetize_speech
+  synthesizeAudioFunction:
+    handler: services/synthesize_speech.synthesize_speech
     events:
       - httpApi:
-          path: /synthetizeSpeech
+          path: /synthesizeSpeech
           method: POST
   rekognitionFunction:
     handler: services/textRekognition.img2txt

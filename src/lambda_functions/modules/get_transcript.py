@@ -6,7 +6,7 @@ from utils.upload_to_s3 import upload_file_to_s3
 from services.transcribe import transcribe_audio
 
 SLACK_TOKEN = os.environ['SLACK_TOKEN']
-BUCKET_NAME = os.environ['BUCKET_NAME']
+AUDIO_INPUT_BUCKET_NAME = os.environ['AUDIO_INPUT_BUCKET_NAME']
 
 def get_transcript(body):
   try:
@@ -21,14 +21,14 @@ def get_transcript(body):
       hash_name = str(uuid.uuid4().hex)
       
       if media_format == '.mp3':
-         object_key = str(hash_name) + '_current_audio.mp3'
+        object_key = str(hash_name) + '_current_audio.mp3'
       else:
         object_key = str(hash_name) + '_current_audio.mp4'
 
-      upload_file_to_s3(audio_file, BUCKET_NAME, object_key)
+      upload_file_to_s3(audio_file, AUDIO_INPUT_BUCKET_NAME, object_key)
 
       print('transcription STARTED')
-      transcription = transcribe_audio(BUCKET_NAME, object_key, hash_name)
+      transcription = transcribe_audio(AUDIO_INPUT_BUCKET_NAME, object_key, hash_name)
       print('transcription COMPLETED')
       
       transcript_dictonary = json.loads(transcription)           

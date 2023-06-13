@@ -1,12 +1,14 @@
 import boto3
 import uuid
+import os
 
 # Create a Transcribe client
 transcribe = boto3.client('transcribe')
 
+TEXT_OUTPUT_BUCKET_NAME = os.environ['TEXT_OUTPUT_BUCKET_NAME']
+
 def transcribe_audio(bucket_name, object_key, uuid):
     
-
     try:
         # Extract the media format from the object_key
         media_format = object_key.split('.')[-1]
@@ -21,7 +23,7 @@ def transcribe_audio(bucket_name, object_key, uuid):
             'Media': {
                 'MediaFileUri': f's3://{bucket_name}/{object_key}'
             },
-            'OutputBucketName': bucket_name
+            'OutputBucketName': TEXT_OUTPUT_BUCKET_NAME
         }
 
         # Start the transcription job

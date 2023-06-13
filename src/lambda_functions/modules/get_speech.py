@@ -1,16 +1,16 @@
 import os
-from services.synthetize_speech import synthetize_speech
+from services.synthesize_speech import synthesize_speech
 
-BUCKET_NAME = os.environ['BUCKET_NAME']
+BUCKET_NAME = os.environ['SYNTHESIZED_SPEECH_BUCKET_NAME']
 
 def get_speech(body):
   try:
     if "text" in body["event"] and body["event"]["text"]:
       text = body["event"]["text"]
         
-      print('synthetize_speech STARTED')
-      synthetize_speech(text, BUCKET_NAME)
-      print('synthetize_speech COMPLETED')
+      print('synthesize_speech STARTED')
+      synthesize_speech(text, BUCKET_NAME)
+      print('synthesize_speech COMPLETED')
       
       return {
         'statusCode': 200,

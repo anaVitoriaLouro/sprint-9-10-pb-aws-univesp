@@ -9,9 +9,6 @@ from modules.get_transcript import get_transcript
 from modules.get_speech import get_speech
 
 SLACK_TOKEN = os.environ['SLACK_TOKEN']
-BUCKET_NAME = os.environ['BUCKET_NAME']
-
-s3_client = boto3.client('s3')
 
 def lambda_handler(event, context):
 	body = json.loads(event['body'])
@@ -39,3 +36,12 @@ def lambda_handler(event, context):
 			'statusCode': 500,
 			'body': 'Something went abruptly wrong. Call 911.'
 		}
+
+
+def health():
+	body = 'health function is working'
+
+	return {
+		'statusCode': 200,
+		'body': body
+	}

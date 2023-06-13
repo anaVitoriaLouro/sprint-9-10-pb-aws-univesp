@@ -8,7 +8,7 @@ import uuid
 polly = boto3.client("polly")
 s3 = boto3.client("s3")
 
-def synthetize_speech(text, bucket_name):
+def synthesize_speech(text, bucket_name):
   
   object_prefix = str(uuid.uuid4().hex)
 
