@@ -47,6 +47,25 @@ def img2txt(event, context):
 
     text = ' '.join(texts) # Juntar as palavras em uma única frase separadas por espaço
 
+
+    # Detectar o idioma do texto usando o Amazon Comprehend
+    comprehend = boto3.client('comprehend')
+    language_response = comprehend.detect_dominant_language(Text=text)
+    detected_language = language_response['Languages'][0]['LanguageCode']
+
+    print(detected_language)
+
+    if detected_language != 'pt-BR':
+        # Traduzir o texto para o português usando o Amazon Translate
+        translate = boto3.client('translate')
+        translation_response = translate.translate_text(
+            Text=text,
+            SourceLanguageCode=detected_language,
+            TargetLanguageCode='pt-BR'
+        )
+        text = translation_response['TranslatedText']
+
+
     result = {
         'url_to_image': url_to_image,
         'created_image': get_image_creation_date(bucket, imageName),
