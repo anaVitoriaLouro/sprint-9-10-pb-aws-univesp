@@ -1,0 +1,46 @@
+service: com-serverless
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-east-1
+
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:GetObject"
+          Resource: "*"
+        - Effect: "Allow"
+          Action:
+            - "rekognition:DetectLabels"
+          Resource: "*"
+        - Effect: "Allow"
+          Action:
+            - "execute-api:*"
+          Resource: "*"
+
+resources:
+  Resources:
+    ImagensBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: imagens-sprint-9-10
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: false
+        OwnershipControls:
+          Rules:
+            - ObjectOwnership: ObjectWriter
+
+functions:
+  ler_imagem:
+    handler: handler.ler_imagem
+    events:
+      - s3:
+          bucket: imagens-sprint-9-10
+          event: s3:ObjectCreated:*
+          rules:
+            - suffix: .jpg
+          existing: true
