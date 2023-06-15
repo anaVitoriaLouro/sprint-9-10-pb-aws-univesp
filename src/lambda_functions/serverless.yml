@@ -70,18 +70,11 @@ resources:
             - ObjectOwnership: ObjectWriter
 
 functions:
-  health:
-    handler: handler.health
+  manager:
+    handler: handler.manager
     events:
       - httpApi:
-          path: /
-          method: GET
-  SlackIntegration:
-    handler: handler.lambda_handler
-    timeout: 29
-    events:
-      - httpApi:
-          path: /slackIntegration
+          path: /manager
           method: POST
   transcribeAudioFunction:
     handler: services/transcribe.transcribe_audio

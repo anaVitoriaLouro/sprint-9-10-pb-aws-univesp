@@ -8,7 +8,7 @@ load_dotenv()
 
 TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
 
-def telegram_send_messages(messages, chat_id):
+def telegram_send_text(messages, chat_id):
   try:
     # Prepares the URL for sending the photo using the Telegram Bot API
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"

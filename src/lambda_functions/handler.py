@@ -7,7 +7,7 @@ from telegram_tools.download_audio import download_audio
 from telegram_tools.download_image import download_image
 from utils.generate_id import generate_random_uuid
 
-def lambda_handler(event, context):
+def manager(event, context):
 	print(event)
 	try:
 		# Handle Telegram event
@@ -57,7 +57,6 @@ def lambda_handler(event, context):
 			'statusCode': 500,
 			'body': 'Something went abruptly wrong. Call 911.'
 		}
-
 
 def health():
 	body = 'health function is working'

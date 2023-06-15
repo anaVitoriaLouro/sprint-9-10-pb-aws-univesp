@@ -1,7 +1,7 @@
 from services.lex_interface import lex_view_message
-from telegram_tools.send_audio_message import send_audio
-from telegram_tools.send_image_message import send_image
-from telegram_tools.send_text_message import send_text
+from telegram_tools.send_audio_message import telegram_send_audio
+from telegram_tools.send_image_message import telegram_send_image
+from telegram_tools.send_text_message import telegram_send_text
 
 def manage_messages(message, session_id, chat_id):
   try:
@@ -24,12 +24,12 @@ def manage_messages(message, session_id, chat_id):
 
       
       # *** Aqui precisa checar se a URL da imagem veio na resposta do Lex ***
-      if 'AgeProgressionImage' in session_attributes:
+      if 'TextedImage' in session_attributes:
         # Get the image URL from session attributes
-        image_url = session_attributes['AgeProgressionImage']
+        image_url = session_attributes['TextedImage']
 
         # Send the image to Telegram
-        response = send_image(image_url, chat_id)
+        response = telegram_send_image(image_url, chat_id)
         # This is the response directly from lex
         print(f'PRINT RESPONSE FOR DEBUG: {response.text}')
 
@@ -54,7 +54,7 @@ def manage_messages(message, session_id, chat_id):
       messages = [message['content'] for message in lex_response['messages'] if message['contentType'] == 'PlainText']
       if messages:
         # Send the messages to Telegram
-        response = send_text(messages, chat_id)
+        response = telegram_send_text(messages, chat_id)
         print(f'PRINT PLAIN_TEXT LEX RESPONSE FOR DEBUG {response.text}')
 
         # Return the response as the API response
