@@ -11,9 +11,9 @@ load_dotenv()
 # AQUI PRECISA DEFINIR AS VARIÁVEIS DE AMBIENTE NO ARQUIVO .env
 
 # Retrieve environment variables
-LEX_BOT_ID = os.environ['LEX_BOT_ID']
-LEX_BOT_ALIAS_ID = os.environ['LEX_BOT_ALIAS_ID']
-LEX_BOT_REGION = os.environ['AWS_REGION']
+LEX_BOT_ID = 'TSTALIASID'
+LEX_BOT_ALIAS_ID = 'TestBotAlias'
+LEX_BOT_REGION = 'us-east-1'
 
 # Create a client for Lex runtime
 lex_client = boto3.client('lexv2-runtime', region_name=LEX_BOT_REGION)
