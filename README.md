@@ -21,33 +21,32 @@ A pandemia da COVID-19 trouxe consigo uma série de desafios sem precedentes, af
 
 # Organização e fluxo de trabalho 
 
-
-
-
-
 # Arquitetura 
 
-![2 1Arquitetura  drawio](https://github.com/Compass-pb-aws-2023-Univesp/sprint-9-10-pb-aws-univesp/assets/88354075/c66896e2-9c27-4e74-a599-4d67a8a5ea32)
+<div align="center">
+  <img src="./assets/arquitetura-atual.jpg">
+  <sub>
+    <p>Arquitetura do projeto</p><br>
+  </sub>
+</div>
 
-
-
-	
 
 ## Serviços utilizados
 
-- Amazon Recokgnition 
-- Amazon Transcribe
-- Amazon Translate
-- Amazon Lex
-- Whatsapp
-- Twilio
+- [Amazon Lex](https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html)
+    * [Amazon Recokgnition](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html) 
+    * [Amazon Transcribe](https://docs.aws.amazon.com/transcribe/latest/dg/what-is.html)
+    * [Amazon Translate](https://docs.aws.amazon.com/translate/latest/dg/what-is.html)
+- [Twilio](https://www.twilio.com/pt-br/docs)
+    * [Whatsapp](https://business.whatsapp.com/developers/developer-hub)
 
 # Instalação
 
 ## Etapas
 
-- Criar um chatbot no Amazon Lex
-- Integrar com Recokgintion 
+- Definição do tema e construção da Arquietura base do projeto;
+- Criar chatbot utilizando Amazon Lex;
+- Integrar com seguintes serviços da AWS: Rekognition, Translate e Transcribe 
 - Criar uma conta no [Twilio](https://www.twilio.com/)
 - Integrar com Whatsapp
 
