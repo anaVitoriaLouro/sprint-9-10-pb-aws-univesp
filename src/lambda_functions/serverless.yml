@@ -23,6 +23,8 @@ provider:
         - "polly:SynthesizeSpeech"
         - "lex:RecognizeText"
         - "lex:PostText"
+        - "comprehend:DetectDominantLanguage"
+        - "translate:TranslateText"
       Resource: "*"
 
 # This creates a public S3 bucket from the deploy
