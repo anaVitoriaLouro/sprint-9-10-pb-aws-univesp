@@ -55,7 +55,7 @@ def manage_messages(message, session_id, chat_id):
       if messages:
         # Send the messages to Telegram
         response = telegram_send_text(messages, chat_id)
-        print(f'PRINT PLAIN_TEXT LEX RESPONSE FOR DEBUG {response.text}')
+        print(f'PRINT LEX RESPONSE FOR DEBUG {response.text}')
 
         # Return the response as the API response
         return {

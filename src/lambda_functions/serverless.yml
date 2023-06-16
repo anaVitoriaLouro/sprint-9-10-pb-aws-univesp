@@ -12,17 +12,17 @@ provider:
         - "lambda:PublishLayerVersion"
         - "lambda:InvokeFunction"
         - "logs:CreateLogGroup"
-        - "logs:CreateLogStream"
         - "logs:PutLogEvents"
+        - "logs:TagResource"
         - "rekognition:DetectText"
         - "s3:PutObject"
         - "s3:GetObject"
         - "transcribe:StartTranscriptionJob"
         - "transcribe:GetTranscriptionJob"
-        - "transcribe:StartTranscriptionJob"
-        - "transcribe:GetTranscriptionJob"
         - "polly:GetSpeechSynthesisTask"
         - "polly:SynthesizeSpeech"
+        - "lex:RecognizeText"
+        - "lex:PostText"
       Resource: "*"
 
 # This creates a public S3 bucket from the deploy
@@ -33,11 +33,7 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub "sprint9-images-input-${AWS::AccountId}"
-        PublicAccessBlockConfiguration:
-          BlockPublicAcls: true
-        OwnershipControls:
-          Rules:
-            - ObjectOwnership: ObjectWriter
+        AccessControl: PublicReadWrite
     #bucket para saída de transcrições
     TextsOutput:
       Type: AWS::S3::Bucket
