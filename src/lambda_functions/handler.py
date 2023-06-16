@@ -5,10 +5,10 @@ import os
 from modules.manage_messages import manage_messages
 from telegram_tools.download_audio import download_audio
 from telegram_tools.download_image import download_image
-from utils.generate_id import generate_random_uuid
+from utils.generate_session_id import generate_session_id
 
 def manager(event, context):
-	print(event)
+	#print(event)
 	try:
 		# Handle Telegram event
 		if 'body' in event:
@@ -16,7 +16,7 @@ def manager(event, context):
 			chat_id = str(body['message']['chat']['id'])
 			
 			# Generate a session ID for the user
-			session_id = generate_random_uuid(chat_id)
+			session_id = generate_session_id(chat_id)
 
 			# Handle text, photo & audio messages
 			if 'message' in body:
