@@ -23,11 +23,11 @@ A pandemia da COVID-19 trouxe consigo uma série de desafios sem precedentes, af
 # Funcionamento 
 
 # Organização e fluxo de trabalho 
-Será construido um serviço que envolverá:
+Foi construído um serviço que envolveu:
 * Configuração inicial Amazon Lex:
     - Definição das intenções (intents): DitadoIntent, 	RepetirAtividade, SaudacaoIntent e FallbackIntent.
     - Criação dos slots: 
-        - VozSlot para capturar a palavra resposta do rekognition.
+        - AudioSlot para capturar a palavra resposta do rekognition.
         - ReforcarSlot para capturar resposta de continuação ou não da atividade do usuário.
       
 * Integração com o Amazon Rekognition:
@@ -43,11 +43,12 @@ O chatbot vai interagir com o usuário por meio de mensagens de texto.
 
 * Fluxo de trabalho do chatbot:
     - O chatbot inicia com uma saudação inicial (SaudacaoIntent), fornecendo uma introdução e instruções para o usuário.
-    - O usuário será informado sobre a realização de um ditado (DitadoIntent) e receber´um audio com a palavra.
+    - O usuário será informado sobre a realização de um ditado (DitadoIntent) e receberá um áudio com a palavra.
     - O chatbot solicita ao usuário que envie a foto da palavra ditada, do áudio, via WhatsApp.
-    - A foto é recebida pelo Amazon Rekognition e processada utilizando uma função lambda personalizada para confirir se a palavra escrita é a mesma ditada.
+    - A foto é recebida pelo Amazon Rekognition e processada utilizando uma função lambda personalizada para conferir se a palavra escrita é a mesma ditada.
     - O chatbot fornece um feedback ao usuário.
     - Após o ditado, o chatbot pode oferecer a opção de realizar outro ditado ou finalizar.
+
 
 # Arquitetura 
 
