@@ -24,7 +24,7 @@ A pandemia da COVID-19 trouxe consigo uma série de desafios sem precedentes, af
 # Arquitetura 
 
 <div align="center">
-  <img src="asset/arquitetura-atual.jpg">
+  <img src="asset/arquitetura-base.jpg">
   <sub>
     <p>Arquitetura do projeto</p><br>
   </sub>
