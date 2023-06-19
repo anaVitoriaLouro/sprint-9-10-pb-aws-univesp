@@ -4,7 +4,7 @@ import botocore
 import datetime
 
 
-def ler_imagem(event, context):
+def read_image(event, context):
     try:
         for record in event['Records']:
             bucket_name = record['s3']['bucket']['name']

@@ -1,6 +1,5 @@
 import boto3
 import json
-import os
 from random import randint
 
 # nome da tabela do dynamo

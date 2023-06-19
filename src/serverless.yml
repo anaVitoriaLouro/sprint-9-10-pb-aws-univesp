@@ -30,6 +30,8 @@ provider:
           Action:
             - polly:*
             - s3:*
+            - transcribe:*
+            - rekognition:*
           Resource:
             - "*"
 
@@ -38,17 +40,32 @@ provider:
 
 functions:
   DynamoManager:
-    handler: dynamo_function.get_phrase
+    handler: services/dynamo_function.get_phrase
     events:
       - httpApi:
           path: /dynamo
           method: post
   PollySpeech:
-    handler: polly_function.put_speech
+    handler: services/polly_function.put_speech
     events:
       - httpApi:
           path: /polly
           method: post
+  Orchestrator:
+    handler: orchestrator_lambda.lambda_handler
+    events:
+      - httpApi:
+          path: /orchestrator
+          method: post
+  ReadImage:
+    handler: services/rekognition_function.read_image
+    events:
+      - s3:
+          bucket: imagens-sprint-9-10
+          event: s3:ObjectCreated:*
+          rules:
+            - suffix: .jpg
+          existing: true
 
 resources:
   Resources:
@@ -63,6 +80,16 @@ resources:
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:custom.tablePhrases}
+
+    ImagesBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: imagens-sprint-9-10
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: false
+        OwnershipControls:
+          Rules:
+            - ObjectOwnership: ObjectWriter
 
 plugins:
   - serverless-offline
