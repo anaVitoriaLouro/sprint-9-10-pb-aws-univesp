@@ -55,7 +55,7 @@ O chatbot vai interagir com o usuário por meio de mensagens de texto.
 # Arquitetura 
 
 <div align="center">
-  <img src="asset/arquitetura-base.jpg">
+  <img src="asset/arquitetura-base.png">
   <sub>
     <p>Arquitetura do projeto</p><br>
   </sub>
