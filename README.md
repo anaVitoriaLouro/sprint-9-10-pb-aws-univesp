@@ -63,12 +63,14 @@ O chatbot vai interagir com o usuário por meio de mensagens de texto.
 ## Serviços utilizados
 
 - [Amazon Lex](https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html)
-    * [Amazon Recokgnition](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html) 
-    * [Amazon Transcribe](https://docs.aws.amazon.com/transcribe/latest/dg/what-is.html)
-    * [Amazon Translate](https://docs.aws.amazon.com/translate/latest/dg/what-is.html)
-    * [Amazon Polly](https://docs.aws.amazon.com/polly/latest/dg/what-is.html)
+    
+- [Amazon Recokgnition](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html) 
+- [Amazon Transcribe](https://docs.aws.amazon.com/transcribe/latest/dg/what-is.html)
+-  [Amazon Translate](https://docs.aws.amazon.com/translate/latest/dg/what-is.html)
+- [Amazon Polly](https://docs.aws.amazon.com/polly/latest/dg/what-is.html)
 - [Twilio](https://www.twilio.com/pt-br/docs)
-    * [Whatsapp](https://business.whatsapp.com/developers/developer-hub)
+
+- [Whatsapp](https://business.whatsapp.com/developers/developer-hub)
 
 # Instalação
 
@@ -83,10 +85,14 @@ O chatbot vai interagir com o usuário por meio de mensagens de texto.
 ## Integrando o Amazon Lex com o Whatsapp via Twilio
 
 - Twilio Console -> My account -> Copiar SID e Token
+
 - Amazon Lex Console -> Bot versions -> Deployment -> Channel Integrations -> Add channel -> Platform - Twilio SMS -> Inserir Account SID e Authentication token -> Create -> Copiar url de endpoint gerado
+
 - Twilio Console -> Messaging -> Settings -> Whatsapp sandbox settings -> Colar endpoint copiado em WHEN A MESSAGE COMES IN
 
 # Dificuldades 
+
+Entender todas as integrações que estão na arquitetura do projeto e o desenvolvimento das Lambdas para chamar e receber as informações dos usuários. 
 
 # Referências 
 
