@@ -6,7 +6,9 @@
 Avaliação das sprints 9 e 10 do programa de bolsas Compass UOL para formação em machine learning para AWS.
 
 ---
-*Capa*
+
+![3imagem](https://github.com/Compass-pb-aws-2023-Univesp/sprint-9-10-pb-aws-univesp/assets/88354075/f24197c4-dbe9-4184-ae7c-ec302ad4b0e6)
+
 
 # Introdução
 
