@@ -1,0 +1,69 @@
+service: bot-alfabet
+frameworkVersion: "3"
+
+custom:
+  tablePhrases: "phrases-table-${sls:stage}"
+  dynamodb:
+    start:
+      migrate: true
+      stages:
+        - ${sls:stage}
+
+provider:
+  name: aws
+  runtime: python3.9
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:DescribeTable
+          Resource:
+            - Fn::GetAtt: [PhrasesTable, Arn]
+        - Effect: Allow
+          Action:
+            - polly:*
+            - s3:*
+          Resource:
+            - "*"
+
+  environment:
+    PHRASES_TABLE: ${self:custom.tablePhrases}
+
+functions:
+  DynamoManager:
+    handler: dynamo_function.get_phrase
+    events:
+      - httpApi:
+          path: /dynamo
+          method: post
+  PollySpeech:
+    handler: polly_function.put_speech
+    events:
+      - httpApi:
+          path: /polly
+          method: post
+
+resources:
+  Resources:
+    PhrasesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.tablePhrases}
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
