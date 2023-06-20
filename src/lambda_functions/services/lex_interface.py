@@ -1,8 +1,8 @@
 import os
 import json
 import boto3
-from services.textRekognition import img2txt
 from dotenv import load_dotenv
+from services.textRekognition import img2txt
 
 load_dotenv()
 
@@ -16,15 +16,17 @@ lex_client = boto3.client('lexv2-runtime', region_name=LEX_BOT_REGION)
 
 def handle_lex_event(event, context):
   # Retrieve session state and intent information from the event
+  print('handle_lex_event foi invocada')
+  print(event)
   session_state = event['sessionState']
   intent_name = session_state['intent']['name']
   state = session_state['intent']['state']
-  texted_img = session_state['intent']['slots']['TextedImage'] #imagem contendo texto
-  image_url = session_state['intent']['slots']['ImageURL'] #url da imagem passada pro slot, que na vdd é a o nome da imagem como está armazenada no bucket
+  image_path = session_state['intent']['slots']['ImagePath'] #s3-url da imagem contendo texto
+  # image_url = session_state['intent']['slots']['ImageURL'] # url da imagem passada pro slot, que na vdd é a o nome da imagem como está armazenada no bucket
 
-  # Remove the 'TextedImage' slot if it is None
-  if texted_img is None:
-    session_state['intent']['slots'].pop('TextedImage', None)
+  # Remove the 'ImagePath' slot if it is None
+  if image_path is None:
+    session_state['intent']['slots'].pop('ImagePath', None)
 
   # Determine the dialog action type and slot to elicit for the response
   if 'proposedNextState' in event:
@@ -58,30 +60,31 @@ def handle_lex_event(event, context):
     "sessionState": session_state,
   }
 
-  # Process the target age and image URL if both are available
-  if texted_img is not None and 'value' in texted_img and 'value' in image_url:
-    image_to_transcribe = texted_img['value']['interpretedValue']
-    image_key_value = image_url['value']['interpretedValue']
+  # Process the target age and image_path if both are available
+  if image_path is not None and 'value' in image_path:
+    image_to_process = image_path['value']['interpretedValue']
 
-    # /     \     /     \     /     \     /     \     /     \     /     \  
-    # AQUI É ONDE FAREMOS O REKOGNITION
+    print(f'so pra ver se pegou o image_path: {image_path}')
+
+    print('depois desse print deveria chamar o rekognition')
+
+    # AQUI PODE CHAMAR O REKOGNITION PASSANDO APENAS A image_to_transcribe QUE É A KEY DO OBJETO ARMAZENADO NO BUCKET
+    processed_image = img2txt(image_to_process)
+    print(f'This is the processed image. It should be an URL with an audio file in S3: {processed_image}')
+
+    print('aqui já era pra ter chamado o reko chamar o rekognition')
     
-    # Print result from DetectText
-    #print(f' FROM lex_interface.handle_lex_event PRINT detect_text_result: {detect_text_result}')
-
     # Update the session attributes and confirmation state
-    #processed_image = response['sessionState']['sessionAttributes']['AgeProgressionImage']
-    #response['sessionState']['intent']['confirmationState'] = 'Confirmed'
-
-    # Print the response and return it for debug
-    #print(f'FROM manage_messages.handle_lex_event => PRINT RESPONSE FOR DEBUG: {response}')
+    response['sessionState']['sessionAttributes']['ImagePath'] = processed_image
+    response['sessionState']['intent']['confirmationState'] = 'Confirmed'
     
-    return response
 
+    print(f'This is the response from lex_interface(handle_lex_event): {response}')
+    return response
 
 def lex_view_message(message, session_id):
   # Print the message and its type for debugging
-  print(f'message: {message}; message type: {type(message)}')
+  # print(f'message: {message}; message type: {type(message)}')
 
   try:
     # Send the message to Lex for recognition
@@ -94,15 +97,14 @@ def lex_view_message(message, session_id):
     )
 
     # Print the Lex response for debugging
-    print(response)
-    print('recognize_text response/lex event')
+    # print(f'This is the LEX RESPONSE from lex_interface(lex_view_message){response}')
+    print(f'lex respondeu')
 
     return response
   
   except Exception as e:
     # Print the exception and return an error response
-    print(e)
-    print('lex_send_message/lex event')
+    print(f'An error caused a system crash, please check: {e}')
 
     return {
       'statusCode': 500,

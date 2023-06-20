@@ -1,37 +1,23 @@
+import os
 from services.lex_interface import lex_view_message
 from telegram_tools.send_audio_message import telegram_send_audio
 from telegram_tools.send_image_message import telegram_send_image
 from telegram_tools.send_text_message import telegram_send_text
+
+TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
+
+# essa função serve pra manejar as mensagens enviadas pelo lex e enviar os resultados de volta pro telegram
 
 def manage_messages(message, session_id, chat_id):
   try:
     # Send message to Lex and wait to get the response
     lex_response = lex_view_message(message, session_id)
     # Print Lex response for debug
-    print(f'THIS IS THE LEX RESPONSE: {lex_response}')
+    #print(f'THIS IS THE LEX RESPONSE: {lex_response}')
 
     # Extract intent and session attributes from Lex response
     intent = lex_response['sessionState']['intent']
     session_attributes = lex_response['sessionState']['sessionAttributes']
-
-
-    # /     \     /     \     /     \     /     \     /     \     /     \     
-
-    # IMPLEMENTAR A PARTIR DAQUI
-
-    # Check if the intent confirmation state is 'Confirmed' to send the image
-    if 'confirmationState' in intent and intent['confirmationState'] == 'Confirmed':
-
-      
-      # *** Aqui precisa checar se a URL da imagem veio na resposta do Lex ***
-      if 'TextedImage' in session_attributes:
-        # Get the image URL from session attributes
-        image_url = session_attributes['TextedImage']
-
-        # Send the image to Telegram
-        response = telegram_send_image(image_url, chat_id)
-        # This is the response directly from lex
-        print(f'PRINT RESPONSE FOR DEBUG: {response.text}')
 
     # /     \     /     \     /     \     /     \     /     \     /     \     
 
@@ -40,11 +26,12 @@ def manage_messages(message, session_id, chat_id):
     # NESSA PARTE PRECISA FAZER UM IF PRA VER SE TEM A URL DO AUDIO NA RESPOSTA DO LEX, SE TIVER, ENVIAR PRO TELEGRAM
     # ACHO QUE DA PRA SEGUIR A MESMA LÓGICA DO QUE TÁ ACIMA NO CASO DE UMA IMAGEM
     # if 'confirmationState' in intent and intent['confirmationState'] == 'Confirmed':
-    #   if 'audio' in session_attributes:
-    #     audiofile_url = ???
-    # # Send the image to Telegram
-    #     response = send_image(image_url, chat_id)
-    #     # This is the response directly from lex
+    #   if 'Audio' in session_attributes:
+    #     audiofile_url = '???'
+    
+    # # Send the synthesized audio to Telegram
+    #     response = telegram_send_audio(audiofile_url, chat_id, TELEGRAM_TOKEN)
+    #     # This is the response after the audio has beent sent to telegram
     #     print(f'PRINT RESPONSE FOR DEBUG: {response.text}')
 
     # /     \     /     \     /     \     /     \     /     \     /     \   
@@ -55,7 +42,8 @@ def manage_messages(message, session_id, chat_id):
       if messages:
         # Send the messages to Telegram
         response = telegram_send_text(messages, chat_id)
-        print(f'PRINT LEX RESPONSE FOR DEBUG {response.text}')
+        # print(f'PRINT LEX RESPONSE FOR DEBUG {response.text}')
+        print('resposta do lex foi para o telegram')
 
         # Return the response as the API response
         return {

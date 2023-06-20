@@ -10,7 +10,7 @@ TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
 
 def telegram_send_image(image_url, chat_id):
   try:
-    # Download the image sent by the user from the Telegram URL
+    # Download the image stored in a S3 bucket
     response = requests.get(image_url)
 
     # Prepares the URL for sending the photo using the Telegram Bot API

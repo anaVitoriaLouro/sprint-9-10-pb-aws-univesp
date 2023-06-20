@@ -37,4 +37,4 @@ def get_transcript(body, audio_file_key, AUDIO_INPUT_BUCKET_NAME):
       return transcript
     
   except Exception as e:
-    return (f'Error occurred: {str(e)}')
+    print(f'Something malfunctioned in get_transcript.py: {str(e)}')
