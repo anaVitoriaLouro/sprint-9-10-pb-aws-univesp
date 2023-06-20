@@ -1,75 +1,127 @@
 ## Avaliação Sprints 9 e 10 - Projeto Final - Programa de Bolsas Compass UOL / AWS e Univesp
 
-## Tema do Projeto
+## Tema e Motivação
 
-A solução proposta deste trabalho tem como intuito fomentar a acessibilidade de textos, áudios e imagens para atender às necessidades de pessoas com distintas dificuldades na leitura e escrita. 
+A solução proposta neste trabalho tem como intuito fomentar a acessibilidade a textos, áudios e imagens para atender necessidades de pessoas com distintas dificuldades na leitura e escrita.
 
 Além de garantir a inclusão, buscaremos facilitar o acesso à informação para indivíduos que enfrentam limitações decorrentes de deficiência auditiva e visual, analfabetismo ou dislexia.
 
+***
+
 ## Introdução
-A inclusão e o acesso à informação são direitos fundamentais para todos os indivíduos. No entanto, muitas pessoas enfrentam barreiras significativas devido a dificuldades na leitura e escrita, deficiência auditiva ou visual, analfabetismo ou dislexia. Para lidar com essas limitações, desenvolvemos uma aplicação prática que utiliza recursos de machine learning e serviços da AWS para tornar os conteúdos acessíveis.
 
-Nossa solução oferece funcionalidades como transcrição de áudio, síntese de voz, reconhecimento de imagens e um chatbot de atendimento. Ao utilizar serviços como o Amazon Transcribe, Amazon Polly, Amazon Rekognition e Amazon Lex, permitimos que pessoas com deficiências ou dificuldades específicas possam acessar informações relevantes por meio de diferentes modalidades.
+Muitas pessoas possuem limitações significativas devido a dificuldades na leitura e escrita, deficiência auditiva ou visual, analfabetismo e dislexia que dificultam o acesso à informação. Para auxiliar com essas limitações, foi desenvolvida esta aplicação prática que utiliza recursos e serviços da AWS para tornar os conteúdos mais acessíveis.
 
-Com a transcrição de áudio, tornamos os conteúdos audíveis em textos, permitindo que pessoas com deficiência auditiva tenham acesso à informação através da leitura. A síntese de voz, por sua vez, possibilita que textos sejam transformados em áudios, beneficiando pessoas com dificuldades na leitura ou com deficiência visual. O reconhecimento de imagens descreve as imagens em texto, permitindo que pessoas com deficiência visual entendam o conteúdo das mesmas. E o chatbot de atendimento oferece suporte e esclarecimentos adicionais sobre o conteúdo acessível, interagindo com os usuários por meio de texto, áudio ou imagem.
+Esta solução oferece funcionalidades como: transcrição de áudio, síntese de voz, reconhecimento de imagens e um chatbot de atendimento para guiar o usuário. Ao utilizar serviços como o Amazon Lex Amazon, Transcribe, Polly e Rekognition, permitimos que pessoas com deficiências ou dificuldades específicas possam acessar informações relevantes por meio de diferentes modalidades.
 
-Esperamos que este projeto contribua para a inclusão e acessibilidade de pessoas com diferentes necessidades, proporcionando uma experiência enriquecedora e facilitando o acesso à informação de forma mais abrangente e igualitária.
+O ChatBot de atendimento oferece suporte e esclarecimentos adicionais sobre o conteúdo acessível, interagindo com os usuários por meio de texto. Com a transcrição de áudio, tornamos os conteúdos audíveis em textos, permitindo que pessoas com deficiência auditiva tenham acesso à informação através da leitura. A síntese de voz, por sua vez, possibilita que textos sejam transformados em áudios, beneficiando pessoas com dificuldades na leitura ou com deficiência visual. Já o reconhecimento de imagens descreve as imagens em texto, permitindo que pessoas com deficiência visual entendam o conteúdo das mesmas.
+
+***
 
 ## Objetivo
-O objetivo deste projeto é desenvolver uma aplicação prática que promova a acessibilidade de textos, áudios e imagens, atendendo às necessidades de pessoas com dificuldades na leitura e escrita, deficiência auditiva ou visual, analfabetismo ou dislexia. Utilizaremos recursos de machine learning e serviços da AWS, como o Amazon Transcribe, Amazon Polly, Amazon Rekognition e Amazon Lex, para implementar funcionalidades que tornem os conteúdos acessíveis por meio de diferentes modalidades.
 
-## Estrutura do Projeto
+Desenvolver uma aplicação prática que promova a acessibilidade de textos, áudios e imagens, atendendo às necessidades de pessoas com dificuldades na leitura e escrita, deficiência auditiva ou visual, analfabetismo ou dislexia. Utilizaremos recursos e serviços da AWS, como o Amazon Transcribe, Amazon Polly, Amazon Rekognition e Amazon Lex, para implementar funcionalidades que tornem os conteúdos acessíveis por meio de diferentes modalidades.
 
-A arquitetura preliminar AWS do nosso projeto foi definida da seguinte forma:
+***
 
-1. Utilizamos o Amazon Transcribe para transcrever áudios em texto.
-2. Utilizamos o Amazon Polly para sintetizar textos em áudios.
-3. Utilizamos o Amazon Rekognition para descrever imagens.
-4. Implementamos um chatbot utilizando o Amazon Lex para interação com os usuários.
-5. A aplicação é hospedada na AWS, com os recursos necessários para garantir a escalabilidade e disponibilidade adequadas.
-<!-- 
-A arquitetura geral do projeto é a seguinte:
+## Ferramentas e Tecnologias utilizadas
 
-1.
-2.
+* [Amazon Transcribe](https://aws.amazon.com/pt/transcribe/): para transcrever áudios em texto.
+* [Amazon Polly](https://aws.amazon.com/pt/polly/): para sintetizar textos em áudios.
+* [Amazon Rekognition](https://aws.amazon.com/pt/rekognition/): para descrever imagens.
+* [Amazon Lex](https://aws.amazon.com/pt/lex/): para interação com os usuários.
+* [Amazon S3](https://aws.amazon.com/pt/s3/): para armazenamento temporário de arquivos de mídia
+* [Telegram](https://web.telegram.org/): plataforma escolhida para hospedar a aplicação
 
-Dessa maneira essa será a arquitetura a ser impantada em TODA ATIVIDADE será: -->
+## Arquitetura do projeto
 
 ![Esboço](/assets/estrutura.PNG)
+<div align="center">
+  <sub>Escboço da arquitetura do projeto</sub>
+</div>
 
+***
 
 ## Funcionamento
-A aplicação funciona da seguinte forma:
 
-- O usuário envia um áudio, imagem ou texto para a aplicação.
-- O Amazon Transcribe é utilizado para transcrever o áudio em texto, se necessário.
-- O texto é processado e transformado em áudio por meio do Amazon Polly, caso solicitado.
-- A imagem é analisada e descrita pelo Amazon Rekognition, gerando um texto descritivo.
-- O chatbot, implementado com o Amazon Lex, oferece suporte adicional e responde a consultas do usuário.
-- Os resultados são apresentados ao usuário de acordo com o formato de entrada escolhido.
+A solução pode ser usada da seguinte maneira:
+
+Com o Bot hospedado no Telegram, o usuário pode a qualquer momento iniciar uma conversa, verificar os serviços oferecidos pela solução e escolher qual deseja naquele momento.
+
+Por exemplo, quando o usuário envia uma mensagem de áudio, existe um backend preparado para acionar o serviço do **Amazon Transcribe**, que por sua vez irá transcrever essa mensagem de áudio e devolver para o usuário uma mensagem de texto com todo o conteúdo daquele áudio.
+
+No caso oposto, o usuário poderá enviar uma mensagem de texto que passara para o serviço do **Amazon Polly**, que realizará a síntese de voz a partir daquele texto, retornando ao usuário uma mensagem de áudio.
+
+No terceiro caso, este usuário poderá tirar foto de uma placa de aviso ou uma escrita que contenha texto impresso ou escrito a mão. Essa imagemn será direcionada ao **Amazon Rekoignition** que fará a extração deste texto e caso não esteja em português, fará a tradução e enviará para o **Amazon Polly**, que usará esse texto para gerar áudio, e retornará ao usuário uma mensagem de voz.
+
+***
 
 ## Requisitos
 
+Para executar este projeto, é necessário que possua uma conta AWS.
+
+[Clique aqui](https://aws.amazon.com/pt/console/) para criar sua conta AWS.
+
 ## Instalação e Implantação
 
+Para implementar na sua conta, siga estes passos:
+
+Clone este repostório
+
+```bash
+  git clone https://github.com/Compass-pb-aws-2023-Univesp/sprint-9-10-pb-aws-univesp.git
+```
+
+Certifique-se de ter as credenciais da sua conta AWS configuradas na sua máquina com a AWS CLI.
+
+Siga [estes passos](https://docs.aws.amazon.com/pt_br/powershell/latest/userguide/pstools-appendix-sign-up.html) para obter suas credenciais de conta.
+
+Configure o ambiente com sua Access Key e Secret Access Key:
+
+```bash
+  $ aws configure
+  AWS Access Key ID [None]: accesskey
+  AWS Secret Access Key [None]: secretkey
+  Default region name [None]: us-west-2
+  Default output format [None]:
+```
+
+Instale o framework serverless
+
+```bash
+  npm install -g serverless
+```
+
+Navegue até a pasta `src`
+
+Inicie o deploy:
+
+```bash
+  serverless deploy
+```
+
 ## Organização Geral do Código Fonte
-Nossa estrutura de pastas e divisão de responsabilidades no código fonte estão organizadas da seguinte maneira:
 
-- src/: Diretório contendo o código fonte principal da aplicação.
-- src/modulo1/: Código relacionado à funcionalidade de transcrição de áudio.
-- src/modulo2/: Código relacionado à funcionalidade de síntese de voz.
-- src/modulo3/: Código relacionado à funcionalidade de reconhecimento de imagens.
-- src/chatbot/: Código relacionado ao chatbot de atendimento.
-- src/utils/: Funções utilitárias compartilhadas.
-- README.md: Este arquivo que documenta detalhes sobre o projeto.
+Estrutura geral da organização do projeto
 
-Nosso código fonte foi otimizado para evitar duplicações e seguir as melhores práticas de desenvolvimento. Buscamos criar um código limpo, legível e de fácil manutenção.
+```a
+.
+├── src/
+│   └── lambda_functions/
+│       ├── modules
+│       ├── services
+│       ├── telegram_tools
+│       └── utils
+└── assets
+```
 
-## Ferramentas Utilizadas
+## Dificuldades e Impedimentos superados
 
-## Dificuldades Conhecidas
+* Uso do Amazon LexV2 com Backend
+* Criaçã ode uma função de gerenciamento para lidar com os eventos vindos do Telegram e repassá-los ao ChatBot
 
 ## Referências
+
 Durante o desenvolvimento deste projeto, consultamos as seguintes referências:
 
 - Documentação oficial da AWS: https://docs.aws.amazon.com/
@@ -80,4 +132,4 @@ Durante o desenvolvimento deste projeto, consultamos as seguintes referências:
 
 ## Desenvolvedores
 [<img src="https://avatars.githubusercontent.com/u/25699466?v=4" width=115><br><sub>Bruno Perillo</sub>](https://github.com/brunoperillo) | [<img src="https://avatars.githubusercontent.com/u/78061851?v=4" width=115><br><sub>Carlos Camilo</sub>](https://github.com/crobertocamilo) | [<img src="https://avatars.githubusercontent.com/u/96358027?v=4" width=115><br><sub>Diego Lopes</sub>](https://github.com/Diegox0301) | [<img src="https://avatars.githubusercontent.com/u/124359272?v=4" width=115><br><sub>Irati Maffra</sub>](https://github.com/IratiMaffra) | [<img src="https://avatars.githubusercontent.com/u/73674662?v=4" width=115><br><sub>Marcos Nativo</sub>](https://github.com/onativo) | [<img src="https://avatars.githubusercontent.com/u/94749597?v=4" width=115><br><sub>O'Dhara Maggi</sub>](https://github.com/odharamaggi)|
-| :---: | :---: | :---: | :---: | :---: | :---: | 
+| :---: | :---: | :---: | :---: | :---: | :---: |
