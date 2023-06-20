@@ -1,5 +1,10 @@
 ## Avaliação Sprints 9 e 10 - Projeto Final - Programa de Bolsas Compass UOL / AWS e Univesp
 
+<div align="center">
+  <h1 style="font-size: 32px;"><b>CompassBot</b></h1>
+</div>
+
+
 ## Tema e Motivação
 
 A solução proposta neste trabalho tem como intuito fomentar a acessibilidade a textos, áudios e imagens para atender necessidades de pessoas com distintas dificuldades na leitura e escrita.
@@ -69,7 +74,8 @@ Para implementar na sua conta, siga estes passos:
 Clone este repostório
 
 ```bash
-  git clone https://github.com/Compass-pb-aws-2023-Univesp/sprint-9-10-pb-aws-univesp.git
+  git clone -b grupo-2 https://github.com/Compass-pb-aws-2023-Univesp/sprint-9-10-pb-aws-univesp.git
+
 ```
 
 Certifique-se de ter as credenciais da sua conta AWS configuradas na sua máquina com a AWS CLI.
