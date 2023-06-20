@@ -12,7 +12,7 @@ Avaliação das sprints 9 e 10 do programa de bolsas Compass UOL para formação
 
 # Introdução
 
-Projeto de desenvolvimento de um chatbot dedicado a auxiliar no reforço da alfabetização de jovens e adultos, especialmente diante dos desafios enfrentados pelo setor da educação no Brasil durante a pandemia. Este projeto foi impulsionado pela necessidade de fornecer uma solução que possa ajudar as crianças a superarem as dificuldades de aprendizado.
+Projeto de desenvolvimento de um chatbot dedicado a auxiliar no reforço da alfabetização de jovens e adultos, especialmente diante dos desafios enfrentados pelo setor da educação no Brasil. Este projeto foi impulsionado pela necessidade de fornecer uma solução que possa ajudar as pessoas a superarem possíveis dificuldades no processo de aprendizado.
 
 A pandemia da COVID-19 trouxe consigo uma série de desafios sem precedentes, afetando significativamente o setor da educação. Com o fechamento das escolas e a transição para o ensino remoto, muitos jovens enfrentaram interrupções em seu processo de alfabetização, uma fase fundamental para o desenvolvimento de habilidades de leitura e escrita. A falta de interação presencial com professores e colegas, além da limitada disponibilidade de recursos educacionais, levou a lacunas no aprendizado e diminuição do engajamento das crianças.
 
@@ -67,11 +67,8 @@ O chatbot vai interagir com o usuário por meio de mensagens de texto.
 - [Amazon Lex](https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html)
     
 - [Amazon Recokgnition](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html) 
-- [Amazon Transcribe](https://docs.aws.amazon.com/transcribe/latest/dg/what-is.html)
--  [Amazon Translate](https://docs.aws.amazon.com/translate/latest/dg/what-is.html)
 - [Amazon Polly](https://docs.aws.amazon.com/polly/latest/dg/what-is.html)
 - [Twilio](https://www.twilio.com/pt-br/docs)
-
 - [Whatsapp](https://business.whatsapp.com/developers/developer-hub)
 
 # Instalação
@@ -80,7 +77,7 @@ O chatbot vai interagir com o usuário por meio de mensagens de texto.
 
 - Definição do tema e construção da Arquietura base do projeto;
 - Criar chatbot utilizando Amazon Lex;
-- Integrar com seguintes serviços da AWS: Rekognition, Transcribe e Polly.
+- Integrar com seguintes serviços da AWS: Rekognition e Polly.
 - Criar uma conta no [Twilio](https://www.twilio.com/)
 - Integrar com Whatsapp
 
