@@ -41,4 +41,3 @@ def telegram_send_text(messages, chat_id):
 			'statusCode': 500,
 			'body': f'Sorry! Could not send the message to Telegram: {str(e)}'
 		}
- 

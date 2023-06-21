@@ -2,20 +2,21 @@ import json
 import boto3
 import requests
 import os
-from services.lex_interface import handle_lex_event
 from modules.manage_messages import manage_messages
 from telegram_tools.download_audio import download_audio
 from telegram_tools.download_image import download_image
-from utils.generate_session_id import generate_session_id
-
-from lambda_functions.services.text_rekognition import img2txt
 from telegram_tools.send_audio_message import telegram_send_audio
+from utils.generate_session_id import generate_session_id
+from services.text_rekognition import img2txt
+from services.synthesize_speech import synthesize_speech
+
 def manager(event, context):
-	print(event)
+	#print(event)
 	try:
 		# Handle Telegram event
 		if 'body' in event:
 			body = json.loads(event['body'])
+			#print(body)
 			chat_id = str(body['message']['chat']['id'])
 
 			# Generate a session ID for the user
@@ -24,15 +25,10 @@ def manager(event, context):
 			# Handle text, photo & audio messages
 			if 'message' in body:
 				message = None
+				
 				if 'text' in body['message']:
-					message = body['message']['text']
-
-					#Sintetiza um audio a partir do texto
-					# ======> Bug: não pode ser chamada desta função, senão todo diálogo gera audio!
+					message = body['message']['text']		
 					
-					#synthesized_speech_url = synthesize_speech(message)
-					#telegram_send_audio(synthesized_speech_url, chat_id, os.environ['TELEGRAM_TOKEN'])
-
 				elif 'voice' in body['message']:
 					audiofile_id = body['message']['voice']['file_id']
 					audiofile_unique_id = body['message']['voice']['file_unique_id']
@@ -46,28 +42,13 @@ def manager(event, context):
 					imagefile_unique_id = body['message']['photo'][-1]['file_unique_id']
 					# Get the uploaded image from Telegram
 					imagefile_key = download_image(imagefile_id, imagefile_unique_id)
-					
 					# Set the file_key as the message for handling
-					# Aqui passa pro lex o nome do arquivo, para poder preencher o slot
+						# Aqui passa pro lex o nome do arquivo, para poder preencher o slot
 					message = imagefile_key
-					
-					#handle_lex_event(event, context)
-					synthesized_speech_url = img2txt(message)
-					telegram_send_audio(synthesized_speech_url, chat_id, os.environ['TELEGRAM_TOKEN'])
-				
 
-				print('Teste out:')
-				print(message)
-				# Precisa implementar a partir daqui
 				if message is not None:
+					print(f'Resposta do usuário: {message}')
 					return manage_messages(message, session_id, chat_id)
-		
-		
-		# Não existe um 'sessionState' nem 'sessionId' dentro do log do evento. 
-		# Dentro do 'body' do log há um 'requestContext', mas seu array não contém sessionState, por isso o if sempre falha
-		# Handle Lex event
-		if 'sessionId' in event and 'sessionState' in event:
-			return handle_lex_event(event, context)
 
 		# For some reason Telegram will only work if the statusCode 200 is sent back with a OK message 
 		return {

@@ -1,14 +1,14 @@
-import boto3
 import os
+import boto3
 from utils.generate_id import generate_random_uuid
 
 # Create a Transcribe client
 transcribe = boto3.client('transcribe')
 
-TEXT_OUTPUT_BUCKET_NAME = os.environ['TEXT_OUTPUT_BUCKET_NAME']
-
-def transcribe_audio(AUDIO_INPUT_BUCKET_NAME, audiofile_key):
+def transcribe_audio(audiofile_key):
     try:
+        TEXT_OUTPUT_BUCKET_NAME = os.environ['TEXT_OUTPUT_BUCKET_NAME']
+        AUDIO_INPUT_BUCKET_NAME = os.environ['AUDIO_INPUT_BUCKET_NAME']
         # Extract the media format from the object_key
         media_format = audiofile_key.split('.')[-1]
         print(f'media_format from transcribe.py: {media_format}')
@@ -22,7 +22,7 @@ def transcribe_audio(AUDIO_INPUT_BUCKET_NAME, audiofile_key):
             'LanguageCode': 'pt-BR',
             'MediaFormat': media_format,
             'Media': {
-                'MediaFileUri': f's3://{AUDIO_INPUT_BUCKET_NAME}/input_audios/{audiofile_key}'
+                'MediaFileUri': f's3://{AUDIO_INPUT_BUCKET_NAME}/{audiofile_key}'
             },
             'OutputBucketName': TEXT_OUTPUT_BUCKET_NAME
         }

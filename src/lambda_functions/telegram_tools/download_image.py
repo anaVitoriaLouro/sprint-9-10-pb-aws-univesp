@@ -1,51 +1,34 @@
-import os
-import json
-import boto3
 import requests
-from dotenv import load_dotenv
-from utils.upload_to_s3 import upload_file_to_s3
+import json
 
-load_dotenv()
+def telegram_send_audio(audio_url, chat_id, telegram_token):
+  try:
+    # Download the audio file sent by the user from the audio URL
+    response = requests.get(audio_url)
+    audio_data = response.content
 
-TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
-IMAGE_INPUT_BUCKET_NAME = os.environ['IMAGE_INPUT_BUCKET_NAME']
+    # Prepare the URL for sending the audio using the Telegram Bot API
+    url = f"https://api.telegram.org/bot{telegram_token}/sendAudio"
 
-def download_image(file_id, file_unique_id):
-    try:
-        # Create an S3 client
-        s3 = boto3.client('s3')
+    # Prepare the data and files for the POST request
+    data = {"chat_id": chat_id}
+    files = {"audio": ("audio_file.mp3", audio_data)}
 
-        # Get the file path from the response of the uploaded image from Telegram
-        response = requests.get(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/getFile?file_id={file_id}")
-        photo_path = response.json()['result']['file_path']
-        # print(photo_path)
+    # Send the audio to the Telegram chat (is this the lex bot's response?)
+    response = requests.post(url, data=data, files=files)
 
-        # Download the actual image content from Telegram
-        photo_content = requests.get(f"https://api.telegram.org/file/bot{TELEGRAM_TOKEN}/{photo_path}").content
+    # Check if the request was successful
+    if response.status_code != 200:
+      # Raise an exception with an error message if the request failed
+      raise Exception(f"Error sending the audio to chat {chat_id}: {response.text}")
 
-        # Extract the image format from the file path
-        image_format = photo_path.split(".")[-1]
-        # print(image_format)
+    # Return the response text
+    return response.text
 
-        # Generate a unique file key to store the image in S3
-        file_key = f"{file_unique_id}.{image_format}"
-        print(file_key)
-
-        # Upload the image content to S3
-        upload_file_to_s3(photo_content, IMAGE_INPUT_BUCKET_NAME, file_key)
-        # s3.put_object(Bucket=IMAGE_INPUT_BUCKET_NAME, Key=file_key, Body=photo_content)
-
-        # Generate a presigned URL for accessing the uploaded image from S3
-        # url = s3.generate_presigned_url('get_object', Params={'Bucket': IMAGE_INPUT_BUCKET_NAME, 'Key': file_key}, ExpiresIn=1200)
-
-        # Print the URL generated from S3 for debugging purposes
-        # print(url)
-
-        # Return the file key of the uploaded image
-        return file_key
-    
-    except Exception as e:
-        return {
-		    'statusCode': 500,
-			'body': f'Image was NOT downloaded successfuly: {e}'
-		}
+  except Exception as e:
+    # Print the exception and return an error response
+    print(e)
+    return {
+      'statusCode': 500,
+      'body': json.dumps(str(e))
+    }

@@ -22,7 +22,7 @@ comprehend = boto3.client('comprehend')
 # Polly client connection 
 polly = boto3.client("polly")
 
-print('Entrou no textRekognition')
+# print('Entrou no textRekognition')
 
 def img2txt(image_to_process):
     
