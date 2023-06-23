@@ -42,19 +42,19 @@ functions:
   DynamoManager:
     handler: services/dynamo_function.get_phrase
     events:
-      - httpApi:
+      - http:
           path: /dynamo
           method: post
   PollySpeech:
     handler: services/polly_function.put_speech
     events:
-      - httpApi:
+      - http:
           path: /polly
           method: post
   Orchestrator:
     handler: orchestrator_lambda.lambda_handler
     events:
-      - httpApi:
+      - http:
           path: /orchestrator
           method: post
   ReadImage:
